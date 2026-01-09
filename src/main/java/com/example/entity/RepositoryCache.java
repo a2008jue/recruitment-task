@@ -23,7 +23,7 @@ public class RepositoryCache {
     private String description;
     private String cloneUrl;
     private Integer stars;
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     private LocalDateTime cachedAt;
 }

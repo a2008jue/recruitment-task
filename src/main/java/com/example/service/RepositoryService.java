@@ -8,12 +8,9 @@ import com.example.entity.RepositoryCacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Service
 public class RepositoryService {
-    private static final DateTimeFormatter ISO_FORMATTER = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-
     @Autowired
     private GitHubApiClient githubApiClient;
     @Autowired
@@ -46,7 +43,7 @@ public class RepositoryService {
         newCache.setCloneUrl(githubResponse.getCloneUrl());
         newCache.setStars(githubResponse.getStars());
 
-        newCache.setCreatedAt(LocalDateTime.parse(githubResponse.getCreatedAt(), ISO_FORMATTER));
+        newCache.setCreatedAt(githubResponse.getCreatedAt());
         newCache.setCachedAt(LocalDateTime.now());
         cacheRepository.save(newCache);
 
@@ -67,7 +64,7 @@ public class RepositoryService {
         response.setCloneUrl(cache.getCloneUrl());
         response.setStars(cache.getStars());
 
-        response.setCreatedAt(cache.getCreatedAt().format(ISO_FORMATTER));
+        response.setCreatedAt(cache.getCreatedAt());
         return response;
     }
 }
